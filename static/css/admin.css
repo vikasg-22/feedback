@@ -1,0 +1,747 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Background Image & Blur Effect */
+body::before {
+    content: "";
+    position: fixed; /* Ensures full-page background remains while scrolling */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url("../images/infra.jpg") no-repeat center center/cover;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+
+/* Heading */
+h1, h2 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+/* Labels and Inputs */
+label, input, select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.logout {
+    background-color: #dc3545;
+    margin-top: 10px;
+}
+
+button.logout:hover {
+    background-color: #c82333;
+}
+
+
+/* Style for the table */
+#subjectsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#subjectsTable th, #subjectsTable td {
+    padding: 12px;
+    text-align: left;
+}
+
+/* Center align the Action column */
+#subjectsTable th:last-child, 
+#subjectsTable td:last-child {
+    text-align: center;
+}
+
+/* Style for table header */
+#subjectsTable th {
+    background-color: #6A0DAD;
+    color: white;
+    text-align: center;
+}
+
+/* Style for the delete button */
+.delete-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+    min-width: 70px;
+}
+
+.delete-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Feedback Table */
+/* Feedback Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Form Sections */
+#adminLoginForm, #adminDashboard {
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.view {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+
+}/* Questions Overlay */
+#questionsOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#questionsOverlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Overlay Content */
+#questionsOverlay .overlay-content {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Overlay Title */
+.overlay-title {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.tab-button.active {
+    background: white;
+    color: #6a11cb;
+    transform: scale(1.1);
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+#questionsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#questionsTable th,
+#questionsTable td {
+    padding: 12px;
+    text-align: left;
+    white-space: normal; 
+
+}
+
+#questionsTable th {
+    background: #6a11cb;
+    color: white;
+    font-weight: bold;
+}
+
+#questionsTable td {
+    border-bottom: 1px solid #ddd;
+}
+
+#questionsTable tr:hover {
+    background: #f1f1f1;
+}
+#questionsTable th:nth-child(3),
+#questionsTable td:nth-child(3) {
+    min-width: 100px;
+    text-align: center;
+}
+/* Group labels + inputs nicely */
+.add-question-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+}
+
+.add-question-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-question-form label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.add-question-form input,
+.add-question-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+#addQuestionBtn {
+    align-self: center;
+    margin-top: 10px;
+}
+
+
+
+
+/* Download Button */
+.download-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.download-btn {
+    padding: 12px 24px;
+    background: #25d366;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.download-btn:hover {
+    background: #1da851;
+    transform: scale(1.05);
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #ff6b81;
+    transform: rotate(90deg);
+}
+
+.overlay .back-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.overlay .back-btn:hover {
+    background: #0056b3;
+}
+
+
+
+/* Styling for Total Average Row */
+.total-average-row {
+    width: 100%;
+    background-color: #f0f0f0; /* Light gray background */
+    font-weight: bold;
+    text-align: center;
+}
+
+.total-average-label {
+    text-align: center;
+    padding-left: 10px;
+}
+
+.total-average-value {
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Styling for Download Button Container */
+.download-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+/* Smaller Download Button */
+#downloadFeedbackBtn {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 12px; /* Reduced size */
+    font-size: 14px; /* Smaller text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#downloadFeedbackBtn:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+/* Feedback Modal Styling */
+#feedbackModal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 85%; /* Make it wider than the admin dashboard */
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    max-height: 90vh;
+    overflow-y: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+#feedbackModal .modal-content {
+    position: relative;
+    padding: 20px;
+}
+
+/* Close Button */
+#feedbackModal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Table container styling */
+#feedbackContainer {
+    display: none; /* Initially hidden */
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+/* Table Styling */
+#feedbackContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Header */
+#feedbackContainer th {
+    background: royalblue;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+/* Table Cells */
+#feedbackContainer td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Alternate Row Color */
+#feedbackContainer tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.submissions-info {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.submissions-info p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* Adjusting Column Widths */
+#feedbackContainer th:nth-child(2), /* Question Column */
+#feedbackContainer td:nth-child(2) {
+    width: 40%; /* Make the Question column wider */
+    text-align: left; /* Align text to the left for better readability */
+    padding-left: 10px;
+}
+
+/* Reduce width of Rating Columns */
+#feedbackContainer th:nth-child(3), /* 1 (Bad) */
+#feedbackContainer th:nth-child(4), /* 2 (Average) */
+#feedbackContainer th:nth-child(5), /* 3 (Good) */
+#feedbackContainer th:nth-child(6), /* 4 (Very Good) */
+#feedbackContainer td:nth-child(3),
+#feedbackContainer td:nth-child(4),
+#feedbackContainer td:nth-child(5),
+#feedbackContainer td:nth-child(6) {
+    width: 10%; /* Make these columns smaller */
+    text-align: center;
+}
+
+/* Keep AVG column slightly wider */
+#feedbackContainer th:nth-child(7),
+#feedbackContainer td:nth-child(7) {
+    width: 12%;
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5px; /* Reduced margin */
+    font-size: 15px; /* Slightly smaller font */
+    font-weight: bold;
+    line-height: 0.5vh;
+}
+
+.feedback-left, .feedback-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* Reduced space between lines */
+}
+.feedback-right {
+
+    margin-right: 2vw;
+}
+
+
+
+h2#feedbackHeading {
+    text-align: center;
+    font-size: 18px; /* Slightly smaller */
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+
+/* Overlay Styling (Reused for Subjects and Feedback) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Overlay Content */
+.overlay-content {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Overlay Title */
+.overlay-title {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #6a11cb;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f1f1f1;
+}
+
+/* Download Button */
+.download-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.download-btn {
+    padding: 12px 24px;
+    background: #25d366;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.download-btn:hover {
+    background: #1da851;
+    transform: scale(1.05);
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #ff6b81;
+    transform: rotate(90deg);
+}
+
+/* Feedback Header */
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.feedback-left, .feedback-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+/* Responsive Fix for Smaller Screens */
+@media screen and (max-width: 768px) {
+    #feedbackModal .modal-content {
+        width: 90%;
+    }
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    
+        table {
+            font-size: 14px;
+        }
+    
+        th, td {
+            padding: 8px;
+        }
+    }  
+ 
+
+
+
+

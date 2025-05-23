@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+     <!-- Admin Login Section -->
+     <div id="adminLogin" class="container">
+        <!-- College Logo -->
+        <div class="logo">
+          <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="College Logo" style="width: 150px; height: auto;">
+      </div>
+
+      <h1>Admin Login</h1>
+      <form id="adminLoginForm">
+          <label for="adminUsername">Username:</label>
+          <input type="text" id="adminUsername" required>
+          
+          <label for="adminPassword">Password:</label>
+          <input type="password" id="adminPassword" required>
+          
+          <button type="submit">Login</button>
+      </form>
+  </div>
+
+  <!-- Admin Dashboard Section -->
+  <div id="adminDashboard" class="container" style="display: none;">
+      <h1>Admin Dashboard</h1>
+      <button class="logout" onclick="logout()" >Logout</button>
+
+
+        <!-- Add Subject Section -->
+        <h2>Add Subject</h2>
+        <form id="addSubjectForm">
+            <!-- Semester selection -->
+            <label for="semester">Select Semester:</label>
+            <select id="semester" required>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+            </select>
+
+            <!-- Branch selection -->
+            <label for="branch">Select Branch:</label>
+                <select id="branch" required>
+                    <option value="">Select</option> <!-- Default option -->
+                </select>
+
+                        
+            <label for="newSubject">Enter New Subject:</label>
+            <input type="text" id="newSubject" required>
+            <button type="submit">Add Subject</button><br>
+        </form>
+
+<!-- Subject Selection Inputs -->
+<div class="subject-selection">
+    <h2> View or Delete Subject</h2>
+    <label for="branchSelect">Select Branch:</label>
+    <select id="branchSelect">
+        <option value="">Loading branches...</option>
+    </select>
+
+    <label for="semesterSelect">Select Semester:</label>
+    <select id="semesterSelect">
+        <option value="">Select Semester</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+
+    <button id="fetchSubjectsBtn">Fetch Subjects</button>
+</div>
+<!-- Subjects Overlay -->
+<div id="subjectsOverlay" class="overlay">
+    <div class="overlay-content">
+        <!-- Close Button -->
+        <button class="close-btn" onclick="closeSubjectsOverlay()">&times;</button>
+
+        <!-- Overlay Title -->
+        <h2 class="overlay-title">Subjects</h2>
+
+        <!-- Subjects Table -->
+        <div class="table-container">
+            <table id="subjectsTable">
+                <thead>
+                    <tr>
+                        <th>Branch</th>
+                        <th>Semester</th>
+                        <th>Subjects</th>
+                        <th>Action</th> 
+
+                    </tr>
+                </thead>
+                <tbody id="subjectsTableBody"></tbody>
+            </table>
+        </div>
+
+        
+    </div>
+
+
+    <div class="overlay" id="dataOverlay">
+        <button class="back-btn" id="backBtn">Back</button>
+        <div class="overlay-content">
+            <h2 id="overlayTitle"> </h2>
+            <table border="1" id="dataTable">
+                <thead>
+                    <tr id="dataHeader"></tr>
+                </thead>
+                <tbody id="dataBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- View & Add Questions Section -->
+<div class="questions-section">
+    <!-- View Questions Button -->
+    <div class="view-questions">
+        <h2>View Questions</h2>
+        <!-- Semester and Form Type Selection -->
+        <label for="viewSemesterSelect">Select Semester:</label>
+        <select id="viewSemesterSelect">
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+        </select>
+
+        <label for="viewFormTypeSelect">Select Form Type:</label>
+        <select id="viewFormTypeSelect">
+            <option value="mid">Mid Semester</option>
+            <option value="end">End Semester</option>
+        </select>
+       <label for="viewYearSelect">Academic Year:</label>
+       <select id="viewYearSelect">
+            <option value="">Select Year</option>
+            <!-- Populated dynamically -->
+        </select>
+        <button id="viewQuestionsBtn">View Questions</button>
+    </div>
+
+    <!-- Add Question Form -->
+    <div class="add-question">
+        <h2>Add Question</h2>
+        <div class="add-question-form">
+            <label for="questionType">Select Type:</label>
+            <select id="questionType">
+                <option value="mid">Mid</option>
+                <option value="end">End</option>
+            </select>
+            <label for="addQuestionSemesterSelect">Select Semester:</label>
+        <select id="addQuestionSemesterSelect">
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+        </select>
+        
+        <div class="form-group">
+            <label for="newQuestionText">Enter Question:</label>
+            <input type="text" id="newQuestionText" placeholder="Enter question" required>
+        </div>
+        <label for="addQuestionYearSelect">Academic Year :</label>
+        <select id="addQuestionYearSelect">
+             <option value="">Select Year</option>
+                <!-- Populated dynamically -->
+        </select>
+        </div>
+
+        <button id="addQuestionBtn">Add Question</button>
+    </div>
+
+<!-- Questions Overlay -->
+<div id="questionsOverlay" class="overlay">
+    <div class="overlay-content">
+        <!-- Close Button -->
+        <button class="close-btn" onclick="closeQuestionsOverlay()">&times;</button>
+        <h2 class="overlay-title">Questions</h2>
+
+        <div class="tabs">
+            <button id="midTab" class="tab-button active">Mid</button>
+            <button id="endTab" class="tab-button">End</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SL No</th>
+                        <th>Question</th>
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody id="questionsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="set-limit-form">
+    <h2>Set Feedback Limit</h2>
+    <!-- Branch Dropdown -->
+    <label for="limitBranch">Branch:</label>
+    <select id="limitBranch" required>
+        <!-- Dynamically populated branch options will go here -->
+    </select>
+
+    <!-- Semester Dropdown -->
+    <label for="limitSemester">Semester:</label>
+    <select id="limitSemester" required>
+        <option value="1">1st Semester</option>
+        <option value="2">2nd Semester</option>
+        <option value="3">3rd Semester</option>
+        <option value="4">4th Semester</option>
+        <option value="5">5th Semester</option>
+        <option value="6">6th Semester</option>
+    </select>
+
+    <!-- Limit Input -->
+    <label for="limitValue">Limit:</label>
+    <input type="number" id="limitValue" min="1" required>
+
+    <!-- Submit Button -->
+    <button onclick="setFeedbackLimit()">Set Limit</button>
+</div>
+        <!-- Feedback Table -->
+        <!-- Feedback Form -->
+<form id="filterForm">
+    <h2>View Feedback</h2>
+    <label for="branch-admin">Select Branch:</label>
+    <select id="branch-admin" onchange="updateSubject()" required>
+        <option value="">Loading branches...</option> <!-- Placeholder for dynamic branches -->
+    </select>
+
+    <label for="semester-admin">Select Semester:</label>
+    <select id="semester-admin" onchange="updateSubject()" required>
+        <option value="">Select Semester</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+    </select>
+
+    <label for="subject">Select Subject:</label>
+    <select id="subject" required>
+        <option value="">Select Subject</option>
+        <!-- Subjects will be populated based on branch and semester -->
+    </select>
+
+    <label for="formType">Select Form:</label>
+    <select id="formType">
+        <option value="">Select Form:</option>
+        <option value="mid">Mid Semester</option>
+        <option value="end">End Semester</option>
+    </select>
+
+    <label for="year-admin">Academic Year:</label>
+    <select id="year-admin" name="year" required>
+        <option value="">Loading...</option> <!-- Will be replaced dynamically -->
+    </select>
+
+    <button type="button" id="fetchFeedbackBtn">Fetch Feedback</button>
+</form>
+        <!-- Feedback Overlay -->
+<div id="feedbackOverlay" class="overlay">
+    <div class="overlay-content">
+        <!-- Close Button -->
+        <button class="close-btn" onclick="closeFeedbackOverlay()">&times;</button>
+
+        <!-- Overlay Title -->
+        <h2 class="overlay-title">Feedback Results</h2>
+
+        <!-- Feedback Header -->
+        <div class="feedback-header">
+            <div class="feedback-left">
+                <p><strong>Branch:</strong> <span id="selectedBranch"></span></p>
+                <p><strong>Semester:</strong> <span id="selectedSemester"></span></p>
+                <p><strong>Year:</strong> <span id="selectedYear"></span></p> <!-- Add this for year -->
+
+            </div>
+            <div class="feedback-right">
+                <p><strong>Subject:</strong> <span id="selectedSubject"></span></p>
+                <p><strong>Form Type:</strong> <span id="selectedFormType"></span></p>
+                <div id="submissionsInfo" class="submissions-info"></div>
+            </div>
+        </div>
+
+        <!-- Feedback Table -->
+        <div class="table-container">
+            <table id="feedbackTable">
+                <thead>
+                    <tr>
+                        <th>SL No</th>
+                        <th>Question</th>
+                        <th><div>   1 <br> (Bad)</div></th>
+                        <th><div>   2 <br> (Average)</div></th>
+                        <th><div>   3 <br> (Good)</div></th>
+                        <th><div>   4 <br> (VeryGood)</div></th>
+                        <th>AVG</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Download Button -->
+        <div class="download-container">
+            <button id="downloadFeedbackBtn" class="download-btn">Download Feedback</button>
+        </div>
+    </div>
+</div>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>  
+
