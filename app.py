@@ -17,12 +17,12 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for cross-origin requests
 
+
 # MongoDB configuration
-import os
-
-app.config["MONGO_URI"] = "mongodb+srv://vikasewp84:vikas123@cluster0.t4mjxqj.mongodb.net/feedback_db?retryWrites=true&w=majority&appName=Cluster0"
-
+mongo_uri = os.environ.get("MONGO_URI")
+app.config["MONGO_URI"] = mongo_uri
 mongo = PyMongo(app)
+
 
 
 # Define collections
